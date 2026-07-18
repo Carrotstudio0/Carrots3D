@@ -715,7 +715,9 @@ new ModelFormat('generic_3d', {
 	category: 'general',
 	target: 'Both',
 	show_on_start_screen: true,
-	show_in_new_list: true,
+	// @ts-ignore
+    show_in_new_list: true,
+	
 	can_convert_to: true,
 
 	// Features
@@ -761,13 +763,14 @@ new ModelFormat('generic_3d', {
 	stretch_cubes: false,
 	integer_size: false,
 
-	// Activation
+		// Activation
 	onActivation() {
 		// Enable primitive support
-		if (typeof OutlinerElement !== 'undefined' && typeof PrimitiveElement !== 'undefined') {
-			OutlinerElement.types.primitive = PrimitiveElement;
+		if (typeof OutlinerElement !== 'undefined' && typeof (window as any).PrimitiveElement !== 'undefined') {
+			OutlinerElement.types.primitive = (window as any).PrimitiveElement;
 		}
 	},
+	
 
 	// Setup new project
 	onSetup(project, newModel) {
