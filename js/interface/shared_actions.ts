@@ -152,8 +152,9 @@ type SharedActionID =
 	| 'duplicate'
 	| 'select_all'
 	| 'unselect_all'
-	| 'invert_selection'
-	setTimeout(() => {
+	| 'invert_selection';
+
+setTimeout(() => {
 	BARS.defineActions(() => {
 		new Action('rename', {
 			icon: 'text_format',
@@ -221,5 +222,3 @@ type SharedActionID =
 		})
 	})
 }, 0);
-
-
