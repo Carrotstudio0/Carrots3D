@@ -1,8 +1,8 @@
 //import { createApp } from 'vue'
-//import App from './App.vue'
-(window as any).SharedActions = (window as any).SharedActions || {};
+//import App from './App.vue
 
 import "./lib/libs"
+import "./interface/shared_actions"
 import "./lib/jquery-ui.min"
 import "./lib/VuePrismEditor.min"
 import "./lib/molang-prism-syntax"
@@ -26,7 +26,6 @@ import "./util/event_system"
 import "./util/property"
 import "./interface/menu"
 import "./interface/actions"
-import "./interface/shared_actions"
 import "./interface/keyboard"
 import "./misc"
 import "./api"
