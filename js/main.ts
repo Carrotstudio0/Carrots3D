@@ -1,5 +1,6 @@
 //import { createApp } from 'vue'
 //import App from './App.vue'
+(window as any).SharedActions = (window as any).SharedActions || {};
 
 import "./lib/libs"
 import "./lib/jquery-ui.min"
