@@ -1,6 +1,7 @@
 import MolangParser from "molangjs";
 import { isMac, Keybinds } from "./keyboard";
 import tinycolor from "tinycolor2";
+import { Sphere, Cylinder, Cone, Torus, Plane } from "../outliner/primitives";
 
 type ActionEventName =
 	| 'delete'
@@ -2026,6 +2027,54 @@ export class ColorPicker extends Widget {
 	}
 }
 
+
+
+// ---- Primitive shape actions (Sphere, Cylinder, Cone, Torus, Plane) ----
+BARS.defineActions(function() {
+
+	const primitive_definitions = [
+		{ id: 'add_sphere',   display_name: 'Sphere',   icon: 'panorama_fish_eye', element: Sphere },
+		{ id: 'add_cylinder', display_name: 'Cylinder', icon: 'panorama_vertical', element: Cylinder },
+		{ id: 'add_cone',     display_name: 'Cone',     icon: 'change_history',    element: Cone },
+		{ id: 'add_torus',    display_name: 'Torus',    icon: 'donut_large',       element: Torus },
+		{ id: 'add_plane',    display_name: 'Plane',    icon: 'crop_din',          element: Plane },
+	];
+
+	primitive_definitions.forEach(def => {
+
+		new Action(def.id, {
+			icon: def.icon,
+			category: 'edit',
+			condition: () => Modes.edit && Format.meshes,
+			click: function () {
+
+				Undo.initEdit({outliner: true, elements: [], selection: true});
+
+				let group = Group.selected || (typeof getPreviewedGroup === 'function' ? getPreviewedGroup() : undefined);
+
+				let element = new def.element({
+					name: def.display_name.toLowerCase()
+				}).init();
+
+				if (group) {
+					element.addTo(group);
+				}
+				element.select();
+
+				Undo.finishEdit(`add_${def.display_name.toLowerCase()}`, {
+					outliner: true,
+					elements: [element],
+					selection: true
+				});
+
+				return element;
+			}
+		});
+
+	});
+
+});
+// ---- End primitive shape actions ----
 
 
 const global = {
