@@ -120,10 +120,12 @@ export const SharedActions = {
 		}
 		return null;
 	},
-	actions: {} as Record<string, SharedActionHandler[]>
-	Object.assign(window, { SharedActions });
-
+		actions: {} as Record<string, SharedActionHandler[]>
 };
+
+// ✅ السطر يكون بره القوس تماماً وتحته بالشكل ده:
+Object.assign(window, { SharedActions });
+
 
 export interface SharedActionHandler {
 	condition: ConditionResolvable
