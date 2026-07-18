@@ -25,6 +25,9 @@ export class PrimitiveElement extends OutlinerElement {
 		this.shape = data.shape || 'sphere';
 		this.name = data.name || 'Primitive';
 		
+		// ربط الـ preview controller عشان init() يقدر يبني الـ mesh فعليًا
+		this.preview_controller = PrimitiveElement.preview_controller;
+		
 		// خصائص الموقف والتحويل
 		this.origin = data.origin || [0, 0, 0];
 		this.rotation = data.rotation || [0, 0, 0];
@@ -455,6 +458,11 @@ export class PrimitivePreviewController {
 		return pointInRectangle(projectPoint(Reusable.vec2), rect_start, rect_end);
 	}
 }
+
+// ============================================
+// ربط الـ Preview Controller بالـ PrimitiveElement
+// ============================================
+PrimitiveElement.preview_controller = new PrimitivePreviewController();
 
 // ============================================
 // دوال مساعدة سريعة
