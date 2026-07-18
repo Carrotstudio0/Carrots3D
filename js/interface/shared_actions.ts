@@ -153,9 +153,7 @@ type SharedActionID =
 	| 'select_all'
 	| 'unselect_all'
 	| 'invert_selection'
-// حط السطر ده قبل بداية الـ BARS
-setTimeout(() => {
-
+	setTimeout(() => {
 	BARS.defineActions(() => {
 		new Action('rename', {
 			icon: 'text_format',
@@ -165,9 +163,53 @@ setTimeout(() => {
 				SharedActions.run('rename');
 			}
 		})
-		
-		// ... (سيب كل الأكواد اللي جوه هنا زي ما هي بالظبط بدون أي تغيير) ...
-
+		Blockbench.onUpdateTo('5.1.0-beta.0', () => {
+			const isMac = SystemInfo?.platform == 'darwin' || navigator.userAgent.includes('Mac OS');
+			if (!isMac) return;
+			delete Keybinds.stored.delete;
+		})
+		new Action('delete', {
+			icon: 'delete',
+			category: 'edit',
+			keybind: new Keybind({key: 46}, {
+				keep_vertices: 'alt'
+			}),
+			variations: {
+				keep_vertices: {name: 'action.delete.keep_vertices'}
+			},
+			condition: () => !Dialog.open,
+			click(event) {
+				SharedActions.run('delete', event);
+			}
+		})
+		new Action('duplicate', {
+			icon: 'content_copy',
+			category: 'edit',
+			condition: () => SharedActions.condition('duplicate'),
+			keybind: new Keybind({key: 'd', ctrl: true}),
+			click(event) {
+				SharedActions.run('duplicate', event);
+			}
+		})
+		new Action('select_all', {
+			icon: 'select_all',
+			category: 'select',
+			condition: () => !Modes.display,
+			keybind: new Keybind({key: 'a', ctrl: true}),
+			click(event) {
+				SharedActions.run('select_all', event);
+				Blockbench.dispatchEvent('select_all', {});
+			}
+		})
+		new Action('unselect_all', {
+			icon: 'border_clear',
+			category: 'select',
+			condition: () => !Modes.display,
+			click(event) {
+				SharedActions.run('unselect_all', event);
+				Blockbench.dispatchEvent('unselect_all', {});
+			}
+		})
 		new Action('invert_selection', {
 			icon: 'swap_vert',
 			category: 'select',
@@ -178,8 +220,8 @@ setTimeout(() => {
 			}
 		})
 	})
+}, 0);
 
-}, 0); // قفل القوس بتاع الـ setTimeout هنا في الآخر خالص
 
 BARS.defineActions(() => {
 	new Action('rename', {
