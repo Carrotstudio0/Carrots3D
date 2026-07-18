@@ -153,6 +153,33 @@ type SharedActionID =
 	| 'select_all'
 	| 'unselect_all'
 	| 'invert_selection'
+// حط السطر ده قبل بداية الـ BARS
+setTimeout(() => {
+
+	BARS.defineActions(() => {
+		new Action('rename', {
+			icon: 'text_format',
+			category: 'edit',
+			keybind: new Keybind({key: 113}),
+			click() {
+				SharedActions.run('rename');
+			}
+		})
+		
+		// ... (سيب كل الأكواد اللي جوه هنا زي ما هي بالظبط بدون أي تغيير) ...
+
+		new Action('invert_selection', {
+			icon: 'swap_vert',
+			category: 'select',
+			keybind: new Keybind({key: 'i', ctrl: true}),
+			click(event) {
+				SharedActions.run('invert_selection', event);
+				Blockbench.dispatchEvent('invert_selection', {});
+			}
+		})
+	})
+
+}, 0); // قفل القوس بتاع الـ setTimeout هنا في الآخر خالص
 
 BARS.defineActions(() => {
 	new Action('rename', {
