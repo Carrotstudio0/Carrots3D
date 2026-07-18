@@ -8,6 +8,7 @@ import { ipcRenderer, SystemInfo } from "./native_apis";
 import { initializeDesktopApp, loadOpenWithBlockbenchFile } from "./desktop";
 import { AutoBackup } from "./auto_backup";
 import { initReferenceImages } from "./preview/reference_images";
+import { PrimitiveElement, PrimitivePreviewController } from "./outliner/primitives";
 
 Interface.page_wrapper = document.getElementById('page_wrapper');
 Interface.work_screen = document.getElementById('work_screen');
@@ -22,6 +23,14 @@ StateMemory.init('dialog_paths', 'object')
 
 initCanvas()
 animate()
+
+// Initialize Primitive support for General 3D Modeling
+if (typeof OutlinerElement !== 'undefined') {
+	OutlinerElement.types.primitive = PrimitiveElement;
+}
+if (typeof PrimitiveElement !== 'undefined') {
+	PrimitiveElement.prototype.preview_controller = new PrimitivePreviewController();
+}
 
 Blockbench.browser = 'electron'
 if (isApp === false) {
