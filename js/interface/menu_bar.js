@@ -256,6 +256,13 @@ export const MenuBar = {
 			new MenuSeparator('add_element'),
 			'add_element',
 			'add_group',
+			{name: 'menu.edit.add_primitive', id: 'add_primitive', icon: 'category', condition: () => Format && Format.meshes, children: [
+				'add_sphere',
+				'add_cylinder',
+				'add_cone',
+				'add_torus',
+				'add_plane',
+			]},
 			new MenuSeparator('modify_elements'),
 			'duplicate',
 			'rename',
