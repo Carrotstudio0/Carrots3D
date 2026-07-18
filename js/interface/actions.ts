@@ -2051,7 +2051,7 @@ BARS.defineActions(function() {
 				Undo.initEdit({outliner: true, elements: [], selection: true});
 
 				// addTo() defaults to 'root' if group is undefined, and calls .init() internally
-				let group = Group.selected || (typeof getPreviewedGroup === 'function' ? getPreviewedGroup() : undefined);
+				let group = Group.selected || (typeof (window as any).getPreviewedGroup === 'function' ? (window as any).getPreviewedGroup() : undefined);
 
 				let element = def.create();
 				element.addTo(group);
