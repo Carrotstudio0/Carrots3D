@@ -9,13 +9,13 @@
 import { OutlinerElement } from './abstract/outliner_element.js';
 import { OutlinerNode } from './abstract/outliner_node.js';
 import { Modes } from '../modes.js';
-import Format from '../io/format.js';   // تعديل: شيلنا {}
-import Project from '../io/project.js'; // تعديل: شيلنا {}
-import Undo from '../undo.js';       // تعديل: شيلنا {}
-import { guid } from '../util/guid.js';
+import Format from '../io/format.js';   
+import Project from '../io/project.js'; 
+import Undo from '../undo.js';       
+import { guid } from '../utils/guid.ts'; // تعديل: جرب utils بالـ s و امتداد ts
 import { Canvas } from '../preview/canvas.js';
-import { Reusable } from '../preview/reusable.js';
-import { TickUpdates } from '../preview/tick_updates.js';
+import { Reusable } from '../preview/reusable.ts'; // تعديل: امتداد ts
+import { TickUpdates } from '../preview/tick_updates.ts'; // تعديل: امتداد ts
 
 // ملحوظة: guid, Reusable, TickUpdates متاحين كـ globals في وقت التشغيل
 // (زي ما بيستخدمهم js/outliner/types/mesh.js من غير أي import) —
