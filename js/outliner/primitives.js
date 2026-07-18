@@ -6,13 +6,17 @@
 // بدل شكل جامد — عشان أدوات الـ Mesh (extrude, merge, إلخ)
 // تشتغل عليه زي أي Mesh عادي في Blockbench.
 
-import { Mesh, MeshFace } from './types/mesh.js';
 import { OutlinerElement } from './abstract/outliner_element.js';
 import { OutlinerNode } from './abstract/outliner_node.js';
 import { Modes } from '../modes.js';
-import { Format } from '../io/format.js';
-import { Project } from '../io/project.js';
-import { Undo } from '../undo.js';
+import Format from '../io/format.js';   // تعديل: شيلنا {}
+import Project from '../io/project.js'; // تعديل: شيلنا {}
+import Undo from '../undo.js';       // تعديل: شيلنا {}
+import { guid } from '../util/guid.js';
+import { Canvas } from '../preview/canvas.js';
+import { Reusable } from '../preview/reusable.js';
+import { TickUpdates } from '../preview/tick_updates.js';
+
 // ملحوظة: guid, Reusable, TickUpdates متاحين كـ globals في وقت التشغيل
 // (زي ما بيستخدمهم js/outliner/types/mesh.js من غير أي import) —
 // عشان كده متعملهمش import هنا، ده كان بيكسر الـ build.
