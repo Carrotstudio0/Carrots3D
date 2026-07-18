@@ -121,6 +121,8 @@ export const SharedActions = {
 		return null;
 	},
 	actions: {} as Record<string, SharedActionHandler[]>
+	Object.assign(window, { SharedActions });
+
 };
 
 export interface SharedActionHandler {
