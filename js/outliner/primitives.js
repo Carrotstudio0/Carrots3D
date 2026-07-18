@@ -9,10 +9,8 @@
 import { OutlinerElement } from './abstract/outliner_element.js';
 import { OutlinerNode } from './abstract/outliner_node.js';
 import { Modes } from '../modes.js';
-import Format from '../io/format.js';   
-import Project from '../io/project.js'; 
-import Undo from '../undo.js';       
 import { Canvas } from '../preview/canvas.js';
+
 
 // ملحوظة: guid, Reusable, TickUpdates متاحين كـ globals في وقت التشغيل
 // (زي ما بيستخدمهم js/outliner/types/mesh.js من غير أي import) —
