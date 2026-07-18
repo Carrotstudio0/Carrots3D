@@ -1,7 +1,7 @@
 import MolangParser from "molangjs";
 import { isMac, Keybinds } from "./keyboard";
 import tinycolor from "tinycolor2";
-import { Sphere, Cylinder, Cone, Torus, Plane } from "../outliner/primitives";
+import { createSphere, createCylinder, createCone, createTorus, createPlane } from "../outliner/primitives";
 
 type ActionEventName =
 	| 'delete'
@@ -2033,11 +2033,11 @@ export class ColorPicker extends Widget {
 BARS.defineActions(function() {
 
 	const primitive_definitions = [
-		{ id: 'add_sphere',   display_name: 'Sphere',   icon: 'panorama_fish_eye', element: Sphere },
-		{ id: 'add_cylinder', display_name: 'Cylinder', icon: 'panorama_vertical', element: Cylinder },
-		{ id: 'add_cone',     display_name: 'Cone',     icon: 'change_history',    element: Cone },
-		{ id: 'add_torus',    display_name: 'Torus',    icon: 'donut_large',       element: Torus },
-		{ id: 'add_plane',    display_name: 'Plane',    icon: 'crop_din',          element: Plane },
+		{ id: 'add_sphere',   icon: 'panorama_fish_eye', create: createSphere },
+		{ id: 'add_cylinder', icon: 'panorama_vertical', create: createCylinder },
+		{ id: 'add_cone',     icon: 'change_history',    create: createCone },
+		{ id: 'add_torus',    icon: 'donut_large',       create: createTorus },
+		{ id: 'add_plane',    icon: 'crop_din',          create: createPlane },
 	];
 
 	primitive_definitions.forEach(def => {
@@ -2050,18 +2050,14 @@ BARS.defineActions(function() {
 
 				Undo.initEdit({outliner: true, elements: [], selection: true});
 
+				// addTo() defaults to 'root' if group is undefined, and calls .init() internally
 				let group = Group.selected || (typeof getPreviewedGroup === 'function' ? getPreviewedGroup() : undefined);
 
-				let element = new def.element({
-					name: def.display_name.toLowerCase()
-				}).init();
-
-				if (group) {
-					element.addTo(group);
-				}
+				let element = def.create();
+				element.addTo(group);
 				element.select();
 
-				Undo.finishEdit(`add_${def.display_name.toLowerCase()}`, {
+				Undo.finishEdit(def.id, {
 					outliner: true,
 					elements: [element],
 					selection: true
